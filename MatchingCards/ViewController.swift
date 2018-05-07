@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createCards()
+        randomizeCards()
         
     }
     func createCards(){
@@ -55,6 +56,18 @@ class ViewController: UIViewController {
             }
             yCenter = yCenter + tileWidth
             xCenter = tileWidth/2
+        }
+        
+    }
+    func randomizeCards(){
+        //interate through tiles and assign a random center
+        for tile in tilesArray
+        {
+            let randIndex: Int = Int(arc4random()) % centersArray.count
+            let randCenter: CGPoint = centersArray[randIndex] as! CGPoint //force cast
+            
+            (tile as! MyLabel).center = randCenter
+            centersArray.removeObject(at: randIndex) // prevents doubles
         }
         
     }
