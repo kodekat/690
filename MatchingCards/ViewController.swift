@@ -12,20 +12,64 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var timerLabel: UILabel!
-    @IBAction func resetGame(_ sender: Any) {
-    }
+    
+    var tileWidth:CGFloat!
+    var tilesArray:NSMutableArray = []
+    var centersArray: NSMutableArray = []
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //blockMakerAction()
-        //randomizeTiles()
-        self.resetGame(Any.self)
+        createCards()
+        
     }
+    func createCards(){
+        tileWidth = gameView.frame.size.width/4
+        var xCenter:CGFloat = tileWidth/2
+        var yCenter:CGFloat = tileWidth/2
+        
+        var tileFrame: CGRect = CGRect(x: 0, y: 0, width: tileWidth-2, height: tileWidth-2)
+        
+        var counter: Int = 1
+        for _ in 0..<4{
+            for _ in 0..<4{
+                let tile: MyLabel = MyLabel(frame: tileFrame)
+                
+                if (counter > 8){counter = 1}
+                tile.text = String (counter)
+                tile.tagNumber = counter //for future use
+                tile.textAlignment = NSTextAlignment.center
+                tile.font = UIFont.boldSystemFont(ofSize: 27)
+                
+                let cen:CGPoint = CGPoint(x: xCenter, y: yCenter)
+                tile.isUserInteractionEnabled = true
+                tile.center = cen
+                tile.backgroundColor = UIColor.blue
+                gameView.addSubview(tile)
+                
+                tilesArray.add(tile)
+                centersArray.add(cen)
+            
+                xCenter = xCenter + tileWidth
+                counter += 1
+            }
+            yCenter = yCenter + tileWidth
+            xCenter = tileWidth/2
+        }
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
          // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func resetGame(_ sender: Any) {
+    }
+}
+
+class MyLabel: UILabel {
+    var tagNumber: Int!
 }
 
 
