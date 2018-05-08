@@ -16,14 +16,18 @@ class ViewController: UIViewController {
     var tileWidth:CGFloat!
     var tilesArray:NSMutableArray = []
     var centersArray: NSMutableArray = []
+    
+    var currentTime: Int = 0
+    var gameTimer: Timer = Timer ()
    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        createCards()
-        randomizeCards()
-        
+        //createCards()
+        //randomizeCards()
+        self.resetGame(Any.self)
     }
+    
     func createCards(){
         tileWidth = gameView.frame.size.width/4
         var xCenter:CGFloat = tileWidth/2
@@ -78,7 +82,32 @@ class ViewController: UIViewController {
     }
     
     @IBAction func resetGame(_ sender: Any) {
+        for anyView in gameView.subviews{
+            anyView.removeFromSuperview()
+        }
+        tilesArray = []
+        centersArray = []
+        createCards()
+        randomizeCards()
+//        for anyTile in tilesArray{
+//            (anyTile as! MyLabel).text = "X"
+//        }
+        currentTime = 0
+        gameTimer.invalidate()
+        gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self,selector: #selector(timerFunc),userInfo: nil, repeats: true)
+        
+        
     }
+    
+    @objc func timerFunc(){
+        currentTime += 1
+        
+        let minutes: Int = currentTime/60
+        let seconds: Int = currentTime % 60
+        let timeDisplay: String = NSString(format: "%02d:%02d", minutes, seconds) as String
+        timerLabel.text = timeDisplay
+    }
+
 }
 
 class MyLabel: UILabel {
