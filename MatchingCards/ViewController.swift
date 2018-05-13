@@ -20,12 +20,17 @@ class ViewController: UIViewController {
     var currentTime: Int = 0
     var gameTimer: Timer = Timer ()
    
+    var compare: Bool = false
+    var firstSelect: MyLabel!
+    var secondSelect: MyLabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //createCards()
         //randomizeCards()
         self.resetGame(Any.self)
+        
+        
     }
     
     func createCards(){
@@ -89,9 +94,9 @@ class ViewController: UIViewController {
         centersArray = []
         createCards()
         randomizeCards()
-//        for anyTile in tilesArray{
-//            (anyTile as! MyLabel).text = "X"
-//        }
+        for anyTile in tilesArray{
+            (anyTile as! MyLabel).text = " "
+        }
         currentTime = 0
         gameTimer.invalidate()
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self,selector: #selector(timerFunc),userInfo: nil, repeats: true)
@@ -106,6 +111,53 @@ class ViewController: UIViewController {
         let seconds: Int = currentTime % 60
         let timeDisplay: String = NSString(format: "%02d:%02d", minutes, seconds) as String
         timerLabel.text = timeDisplay
+       
+    }
+    
+    public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let thisTouch: UITouch = touches.first!
+        if (tilesArray.contains(thisTouch.view as Any)){
+            let thisTile:MyLabel = thisTouch.view as! MyLabel
+            UIView.transition(with: thisTile, duration: 0.75,
+                options: UIViewAnimationOptions.transitionFlipFromRight,
+                animations: {
+                thisTile.text = String (thisTile.tagNumber) //show tag number when flipped
+                thisTile.backgroundColor = UIColor.cyan
+            }, completion: { (true) in
+                if (self.compare)
+                {//comparing
+                    self.compare = false
+                    self.secondSelect = thisTile
+                    self.didSelectionsMatch()
+                }else{
+                    //only flip back
+                    self.firstSelect = thisTile
+                    self.compare = true
+                }
+            })
+        }
+    }
+    
+    func didSelectionsMatch(){
+        if (firstSelect.tagNumber == secondSelect.tagNumber){
+            //match
+            firstSelect.text = "😻"
+            secondSelect.text = "😻"
+            firstSelect.backgroundColor = UIColor.green
+            secondSelect.backgroundColor = UIColor.green
+        }else{
+            //not a match
+            UIView.transition(with: self.view,
+                              duration: 0.9,
+                              options: UIViewAnimationOptions.transitionCrossDissolve,
+                              animations: {
+                                self.firstSelect.text = ""
+                                self.secondSelect.text = " "
+                                self.firstSelect.backgroundColor = UIColor.blue
+                                self.secondSelect.backgroundColor = UIColor.blue
+            },
+                              completion: nil)
+        }
     }
 
 }
