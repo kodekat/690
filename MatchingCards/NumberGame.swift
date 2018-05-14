@@ -20,8 +20,22 @@ class NumberGame: UIViewController {
     
     @IBAction func guessTheNum(_ sender: Any) {
         if (Int(guessText.text!) != nil){
-            
+            //input is present
+            countGuesses += 1
+            let number = Int(guessText.text!)
+            if number == guessNumber {
+                guessLabel.text = "Congrats You Guessed Correctly! It took you \(countGuesses) times to get it right. Do you want to Guess Again?"
+            }else if number! < guessNumber{
+                guessLabel.text = "You're a little far off. Try going up."
+                
+            }else if number! > guessNumber{
+                
+                guessLabel.text = "You're a little far off. Try going down."
+                
+            }
+            guessText.text = "";
         }else{
+            //player did not enter a number
             guessLabel.text = "Please Enter A Number :)"
         }
     }
