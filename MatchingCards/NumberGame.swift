@@ -70,11 +70,13 @@ class NumberGame: UIViewController {
 }
 
 class Colors {
+    /*source : stackoverflow.com/questions/24380535/how-to-apply-gradient-to-background-view-of-ios-swift-app */
+    
     var gl:CAGradientLayer!
     
     init() {
-        let colorTop = UIColor(red: 42.0 / 255.0, green: 134.0 / 255.0, blue: 203.0 / 255.0, alpha: 1.0).cgColor
-        let colorBottom = UIColor(red: 226.0 / 255.0, green: 242.0 / 255.0, blue: 249.0 / 255.0, alpha: 1.0).cgColor
+        let colorTop = UIColor(red: 72.0 / 255.0, green: 113.0 / 255.0, blue: 222.0 / 255.0, alpha: 1.0).cgColor
+        let colorBottom = UIColor(red: 46.0 / 255.0, green: 155.0 / 255.0, blue: 180.0 / 255.0, alpha: 1.0).cgColor
         
         self.gl = CAGradientLayer()
         self.gl.colors = [colorTop, colorBottom]

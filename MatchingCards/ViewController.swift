@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import Foundation
 
 class ViewController: UIViewController {
 
+    let colors = Colors()
     @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var timerLabel: UILabel!
     
     var tileWidth:CGFloat!
     var tilesArray:NSMutableArray = []
     var centersArray: NSMutableArray = []
+    
+    var mediumGreen = UIColor(red: 91.0 / 255.0, green: 229.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0)
+    var deepPurple = UIColor(red: 139.0 / 255.0, green: 91.0 / 255.0, blue: 229.0 / 255.0, alpha: 1.0)
+    var okayRed = UIColor(red: 247.0 / 255.0, green: 134.0 / 255.0, blue: 145.0 / 255.0, alpha: 1.0)
     
     var currentTime: Int = 0
     var gameTimer: Timer = Timer ()
@@ -24,11 +30,15 @@ class ViewController: UIViewController {
     var firstSelect: MyLabel!
     var secondSelect: MyLabel!
     
+    var completed: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //createCards()
         //randomizeCards()
+        loadGradientColors()
         self.resetGame(Any.self)
+        timerLabel.backgroundColor = okayRed
         
         
     }
@@ -49,12 +59,13 @@ class ViewController: UIViewController {
                 tile.text = String (counter)
                 tile.tagNumber = counter //for future use
                 tile.textAlignment = NSTextAlignment.center
+                tile.textColor = UIColor.white
                 tile.font = UIFont.boldSystemFont(ofSize: 27)
                 
                 let cen:CGPoint = CGPoint(x: xCenter, y: yCenter)
                 tile.isUserInteractionEnabled = true
                 tile.center = cen
-                tile.backgroundColor = UIColor.blue
+                tile.backgroundColor = mediumGreen
                 gameView.addSubview(tile)
                 
                 tilesArray.add(tile)
@@ -122,7 +133,7 @@ class ViewController: UIViewController {
                 options: UIViewAnimationOptions.transitionFlipFromRight,
                 animations: {
                 thisTile.text = String (thisTile.tagNumber) //show tag number when flipped
-                thisTile.backgroundColor = UIColor.cyan
+                thisTile.backgroundColor = self.deepPurple
             }, completion: { (true) in
                 if (self.compare)
                 {//comparing
@@ -141,10 +152,20 @@ class ViewController: UIViewController {
     func didSelectionsMatch(){
         if (firstSelect.tagNumber == secondSelect.tagNumber){
             //match
-            firstSelect.text = "😻"
-            secondSelect.text = "😻"
-            firstSelect.backgroundColor = UIColor.green
-            secondSelect.backgroundColor = UIColor.green
+            completed += 1
+            if (completed == 8 ){
+                let alert = UIAlertController(title: "Congratulations", message: "You matched all! Play Again or Quit. ", preferredStyle: UIAlertControllerStyle.alert)
+                gameTimer.invalidate()
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler:{ action in
+                    self.resetGame(Any.self)
+                }))
+                self.present(alert, animated: true, completion: nil)
+              
+            }
+            firstSelect.text = "🃏"
+            secondSelect.text = "🃏"
+            firstSelect.backgroundColor = okayRed
+            secondSelect.backgroundColor = okayRed
         }else{
             //not a match
             UIView.transition(with: self.view,
@@ -153,17 +174,26 @@ class ViewController: UIViewController {
                               animations: {
                                 self.firstSelect.text = ""
                                 self.secondSelect.text = " "
-                                self.firstSelect.backgroundColor = UIColor.blue
-                                self.secondSelect.backgroundColor = UIColor.blue
+                                self.firstSelect.backgroundColor = self.mediumGreen
+                                self.secondSelect.backgroundColor = self.mediumGreen
             },
                               completion: nil)
         }
     }
 
+    
+    func loadGradientColors() {
+        view.backgroundColor = UIColor.clear
+        var backgroundLayer = colors.gl
+        backgroundLayer?.frame = view.frame
+        view.layer.insertSublayer(backgroundLayer!, at: 0)
+    }
 }
 
 class MyLabel: UILabel {
     var tagNumber: Int!
 }
+
+
 
 
