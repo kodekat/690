@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Welcome View-->
         <scene sceneID="ECZ-NU-Xsr">
             <objects>
-                <viewController id="fdS-1t-LaL" sceneMemberID="viewController">
+                <viewController id="fdS-1t-LaL" customClass="WelcomeView" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="hwv-ez-CyJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -48,6 +48,10 @@
                                     <segue destination="ijU-vj-VXW" kind="show" id="wvU-74-2Al"/>
                                 </connections>
                             </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="cloudIcon" translatesAutoresizingMaskIntoConstraints="NO" id="PAa-Qo-WpT">
+                                <rect key="frame" x="125" y="500" width="136.99999999999994" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.58081901069999997" green="0.088427625600000004" blue="0.31863921880000001" alpha="0.90250104865771807" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -183,6 +187,9 @@
             <point key="canvasLocation" x="428" y="257.72113943028489"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="cloudIcon" width="390" height="390"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="FNn-5b-yMp"/>
     </inferredMetricsTieBreakers>
