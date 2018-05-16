@@ -166,6 +166,8 @@ class ViewController: UIViewController {
             secondSelect.text = "🃏"
             firstSelect.backgroundColor = okayRed
             secondSelect.backgroundColor = okayRed
+            firstSelect.isUserInteractionEnabled = false //cant flip back
+            secondSelect.isUserInteractionEnabled = false // "
         }else{
             //not a match
             UIView.transition(with: self.view,
