@@ -2,9 +2,7 @@
 //  NumberGame.swift
 //  MatchingCards
 //
-//  Created by Teodora on 5/13/18.
-//  Copyright © 2018 Teodora. All rights reserved.
-//
+
 
 import Foundation
 import UIKit
@@ -23,7 +21,7 @@ class NumberGame: UIViewController {
         if guessAgain {
             countGuesses = 0
             guessText.text = ""
-            actualNumber = Int(arc4random_uniform(100))
+            actualNumber = Int(arc4random_uniform(101))
             guessAgain = false
         }
         
@@ -38,7 +36,6 @@ class NumberGame: UIViewController {
                 guessLabel.text = "You're a little far off.\n Try going up."
                 
             }else if number! > actualNumber{
-                
                 guessLabel.text = "You're a little far off.\n Try going down."
                 
             }
@@ -52,9 +49,10 @@ class NumberGame: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadGradientColors()
-        actualNumber = Int(arc4random_uniform(100))
+        actualNumber = Int(arc4random_uniform(101))
         //reset random value
     }
+    
     override open var shouldAutorotate: Bool {
         return false //disable rotation
     }
@@ -62,14 +60,13 @@ class NumberGame: UIViewController {
     
     func loadGradientColors() {
         view.backgroundColor = UIColor.clear
-        var backgroundLayer = colors.gl
+        let backgroundLayer = colors.gl
         backgroundLayer?.frame = view.frame
         view.layer.insertSublayer(backgroundLayer!, at: 0)
     }
 
 
-    
-    
+ 
 }
 
 class Colors {

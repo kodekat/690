@@ -10,15 +10,13 @@ import Foundation
 import UIKit
 
 class WelcomeView: UIViewController{
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.img.image = UIImage(named: "cloudIcon")
+        //self.img.image = UIImage(named: "cloudIcon")
     }
     override open var shouldAutorotate: Bool {
         return false
     }
-    
     
 }

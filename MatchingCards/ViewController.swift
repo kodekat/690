@@ -82,6 +82,7 @@ class ViewController: UIViewController {
         }
         
     }
+    
     func randomizeCards(){
         //interate through tiles and assign a random center
         for tile in tilesArray
@@ -188,7 +189,7 @@ class ViewController: UIViewController {
     
     func loadGradientColors() {
         view.backgroundColor = UIColor.clear
-        var backgroundLayer = colors.gl
+        let backgroundLayer = colors.gl
         backgroundLayer?.frame = view.frame
         view.layer.insertSublayer(backgroundLayer!, at: 0)
     }
