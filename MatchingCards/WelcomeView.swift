@@ -16,6 +16,9 @@ class WelcomeView: UIViewController{
         super.viewDidLoad()
 //        self.img.image = UIImage(named: "cloudIcon")
     }
+    override open var shouldAutorotate: Bool {
+        return false
+    }
     
     
 }

@@ -39,8 +39,11 @@ class ViewController: UIViewController {
         loadGradientColors()
         self.resetGame(Any.self)
         timerLabel.backgroundColor = okayRed
-        
-        
+    
+    }
+    
+    override open var shouldAutorotate: Bool {
+        return false
     }
     
     func createCards(){
@@ -48,7 +51,7 @@ class ViewController: UIViewController {
         var xCenter:CGFloat = tileWidth/2
         var yCenter:CGFloat = tileWidth/2
         
-        var tileFrame: CGRect = CGRect(x: 0, y: 0, width: tileWidth-2, height: tileWidth-2)
+        let tileFrame: CGRect = CGRect(x: 0, y: 0, width: tileWidth-2, height: tileWidth-2)
         
         var counter: Int = 1
         for _ in 0..<4{
@@ -111,8 +114,7 @@ class ViewController: UIViewController {
         currentTime = 0
         gameTimer.invalidate()
         gameTimer = Timer.scheduledTimer(timeInterval: 1, target: self,selector: #selector(timerFunc),userInfo: nil, repeats: true)
-        
-        
+         
     }
     
     @objc func timerFunc(){

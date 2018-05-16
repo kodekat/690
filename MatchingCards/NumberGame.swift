@@ -55,6 +55,9 @@ class NumberGame: UIViewController {
         actualNumber = Int(arc4random_uniform(100))
         //reset random value
     }
+    override open var shouldAutorotate: Bool {
+        return false //disable rotation
+    }
     
     
     func loadGradientColors() {
